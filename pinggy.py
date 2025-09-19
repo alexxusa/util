@@ -7,14 +7,17 @@ import sys
 import time
 import psutil
 
+#%cd /kaggle/working/ComfyUI
+
 def is_port_in_use(port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('127.0.0.1', port)) == 0
 
 def run_app(env, command, port):
     print(command)
-    subprocess.run(f'{command} & ssh -o StrictHostKeyChecking=no -p 80 -R0:localhost:{port} a.pinggy.io > log.txt', shell=True, env=env)
-    
+    #subprocess.run(f'{command} & ssh -o StrictHostKeyChecking=no -p 80 -R0:localhost:{port} a.pinggy.io > log.txt', shell=True, env=env)
+    subprocess.run(f'/kaggle/working/ComfyUI/{command} & ssh -o StrictHostKeyChecking=no -p 80 -R0:localhost:{port} a.pinggy.io > log.txt', shell=True, env=env)
+
 def print_url():
     print("waiting for output")
     time.sleep(2)
@@ -75,4 +78,5 @@ def main():
     p_url.join()
     
 if __name__ == '__main__':
+
     main()
