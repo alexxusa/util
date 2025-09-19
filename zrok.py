@@ -15,30 +15,7 @@ def run_app(env, command, port):
     print(command)    
     subprocess.run(f'{command} & /kaggle/working/zrok/zrok share public http://localhost:{port} --headless', shell=True, env=env)
 
-'''def print_url():
-   # print("waiting for output")
-    time.sleep(4)
-    sys.stdout.flush()
-    
-    found = False
-    with open('log.txt', 'r') as file:
-        end_word = '.share.zrok.io'
-        for line in file:
-            start_index = line.find("http:")
-            if start_index != -1:
-                end_index = line.find(end_word, start_index)
-                if end_index != -1:
-                    print("😁 😁 😁")
-                    print("URL: " + line[start_index:end_index + len(end_word)])
-                    print("😁 😁 😁")
-                    found = True
-    if not found:
-        print_url()
-    else:
-        with open('log.txt', 'r') as file:
-            for line in file:
-                print(line)
-   ''' 
+
 def find_and_terminate_process(port):
     for process in psutil.process_iter(['pid', 'name', 'connections']):
         for conn in process.info.get('connections', []):
@@ -69,13 +46,13 @@ def main():
     open('log.txt', 'w').close()
     
     p_app = Process(target=run_app, args=(env, command, target_port,))
-   # p_url = Process(target=print_url)
+ 
     
-    p_app.start()
-   # p_url.start()
+    p_app.start() 
     p_app.join()
-    #p_url.join()
+ 
     
 if __name__ == '__main__':
 
     main()
+
