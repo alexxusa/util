@@ -15,9 +15,9 @@ def run_app(env, command, port):
     print(command)    
     subprocess.run(f'{command} & /kaggle/working/zrok/zrok share public http://localhost:{port} --headless', shell=True, env=env)
 
-def print_url():
-    print("waiting for output")
-    time.sleep(2)
+'''def print_url():
+   # print("waiting for output")
+    time.sleep(4)
     sys.stdout.flush()
     
     found = False
@@ -38,7 +38,7 @@ def print_url():
         with open('log.txt', 'r') as file:
             for line in file:
                 print(line)
-    
+   ''' 
 def find_and_terminate_process(port):
     for process in psutil.process_iter(['pid', 'name', 'connections']):
         for conn in process.info.get('connections', []):
@@ -67,12 +67,15 @@ def main():
         print(f"Port {target_port} is free.")
     
     open('log.txt', 'w').close()
+    
     p_app = Process(target=run_app, args=(env, command, target_port,))
-    p_url = Process(target=print_url)
+   # p_url = Process(target=print_url)
+    
     p_app.start()
-    p_url.start()
+   # p_url.start()
     p_app.join()
-    p_url.join()
+    #p_url.join()
     
 if __name__ == '__main__':
+
     main()
