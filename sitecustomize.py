@@ -7,7 +7,7 @@ import importlib.abc
 import importlib
 import importlib.machinery
 
-import wrapt
+# import wrapt
 
 class GcpModuleFinder(importlib.abc.MetaPathFinder):
     _MODULES = [
@@ -75,7 +75,7 @@ class GcpModuleLoader(importlib.abc.Loader):
 
 if not hasattr(sys, 'frozen'):
     sys.meta_path.insert(0, GcpModuleFinder())
-
+'''
 @wrapt.when_imported('google.generativeai')
 def post_import_logic(module):
     if os.getenv('KAGGLE_DISABLE_GOOGLE_GENERATIVE_AI_INTEGRATION') != None:
@@ -144,3 +144,4 @@ def post_genai_import_logic(module):
         }
         kwargs['http_options'] = http_options
         return wrapped(*args, **kwargs)
+'''
